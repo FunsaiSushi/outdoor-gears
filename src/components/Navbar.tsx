@@ -1,7 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FiUser, FiMenu, FiMapPin, FiLogOut, FiPlus } from "react-icons/fi";
+import {
+  FiUser,
+  FiMenu,
+  FiMapPin,
+  FiLogOut,
+  FiPlus,
+  FiHome,
+  FiAlertCircle,
+} from "react-icons/fi";
 
 interface NavbarProps {
   onLocationsClick: (show: boolean) => void;
@@ -12,6 +20,7 @@ interface NavbarProps {
   onMenuClick: () => void;
   onReportDamageClick: () => void;
   onYourListingsClick: () => void;
+  onYourReportsClick: () => void;
 }
 
 const Navbar = ({
@@ -23,6 +32,7 @@ const Navbar = ({
   onMenuClick,
   onReportDamageClick,
   onYourListingsClick,
+  onYourReportsClick,
 }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -93,98 +103,119 @@ const Navbar = ({
             </span>
           </button>
 
-          {/* Desktop Navigation Items */}
-          <div className="hidden md:flex items-center gap-8">
-            <button
-              onClick={() => onLocationsClick(true)}
-              className="text-white hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer"
-            >
-              <FiMapPin className="w-5 h-5" />
-              <span>Locations</span>
-            </button>
+          {!showLocations ? (
+            <>
+              {/* Desktop Navigation Items */}
+              <div className="hidden md:flex items-center gap-8">
+                <button
+                  onClick={() => onLocationsClick(true)}
+                  className="text-white hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  <FiMapPin className="w-5 h-5" />
+                  <span>Locations</span>
+                </button>
 
-            {currentUser && (
-              <button
-                onClick={onAddRentalClick}
-                className="text-white hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer"
-              >
-                <FiPlus className="w-5 h-5" />
-                <span>Add Gear</span>
-              </button>
-            )}
+                {currentUser && (
+                  <button
+                    onClick={onAddRentalClick}
+                    className="text-white hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer"
+                  >
+                    <FiPlus className="w-5 h-5" />
+                    <span>Add Gear</span>
+                  </button>
+                )}
 
-            {/* User Menu Button */}
-            <div className="relative">
-              <button
-                onClick={handleUserClick}
-                className="user-button p-2 rounded-full hover:bg-white/10 transition-colors cursor-pointer"
-              >
-                <FiUser className="w-5 h-5 text-white hover:text-emerald-400 transition-colors" />
-              </button>
+                {/* User Menu Button */}
+                <div className="relative">
+                  <button
+                    onClick={handleUserClick}
+                    className="user-button p-2 rounded-full hover:bg-white/10 transition-colors cursor-pointer"
+                  >
+                    <FiUser className="w-5 h-5 text-white hover:text-emerald-400 transition-colors" />
+                  </button>
 
-              {/* User Menu Dropdown */}
-              {showUserMenu && (
-                <div className="user-menu absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-lg py-2 z-50">
-                  <div className="px-4 py-2 border-b border-gray-100">
-                    <p className="text-sm text-gray-600 truncate">
-                      {currentUser?.email}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => {
-                      onRentalHistoryClick();
-                      setShowUserMenu(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                  >
-                    Rental History
-                  </button>
-                  <button
-                    onClick={() => {
-                      onYourListingsClick();
-                      setShowUserMenu(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                  >
-                    Your Listings
-                  </button>
-                  <button
-                    onClick={() => {
-                      onReportDamageClick();
-                      setShowUserMenu(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-amber-600 hover:bg-gray-100 cursor-pointer"
-                  >
-                    Report Damage
-                  </button>
-                  <button
-                    onClick={() => {
-                      localStorage.removeItem("isAuthenticated");
-                      localStorage.removeItem("currentUser");
-                      setCurrentUser(null);
-                      setShowUserMenu(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
-                  >
-                    <FiLogOut className="w-4 h-4" />
-                    Logout
-                  </button>
+                  {/* User Menu Dropdown */}
+                  {showUserMenu && (
+                    <div className="user-menu absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-lg py-2 z-50">
+                      <div className="px-4 py-2 border-b border-gray-100">
+                        <p className="text-sm text-gray-600 truncate">
+                          {currentUser?.email}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          onRentalHistoryClick();
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                      >
+                        Rental History
+                      </button>
+                      <button
+                        onClick={() => {
+                          onYourListingsClick();
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                      >
+                        Your Listings
+                      </button>
+                      <button
+                        onClick={() => {
+                          onReportDamageClick();
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-amber-600 hover:bg-gray-100 cursor-pointer"
+                      >
+                        Report Damage
+                      </button>
+                      <button
+                        onClick={() => {
+                          onYourReportsClick();
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-amber-600 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
+                      >
+                        <FiAlertCircle className="w-4 h-4" />
+                        Your Reports
+                      </button>
+                      <button
+                        onClick={() => {
+                          localStorage.removeItem("isAuthenticated");
+                          localStorage.removeItem("currentUser");
+                          setCurrentUser(null);
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
+                      >
+                        <FiLogOut className="w-4 h-4" />
+                        Logout
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
+              </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={onMenuClick}
-            className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors cursor-pointer"
-          >
-            <FiMenu className="w-6 h-6 text-white hover:text-emerald-400 transition-colors" />
-          </button>
+              {/* Mobile Menu Button */}
+              <button
+                onClick={onMenuClick}
+                className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <FiMenu className="w-6 h-6 text-white hover:text-emerald-400 transition-colors" />
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => onLocationsClick(false)}
+              className="flex items-center cursor-pointer"
+            >
+              <FiHome className="w-6 h-6 text-white hover:text-emerald-400 transition-colors cursor-pointer" />
+            </button>
+          )}
         </div>
       </div>
     </nav>
   );
 };
 
-export default Navbar;
+export { Navbar };

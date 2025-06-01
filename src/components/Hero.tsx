@@ -1,21 +1,16 @@
-"use client";
-
 import { motion } from "framer-motion";
-import { Bebas_Neue } from "next/font/google";
 import {
-  FaFire,
   FaCampground,
-  FaCompass,
+  FaFire,
   FaMapMarkedAlt,
+  FaCompass,
 } from "react-icons/fa";
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-bebas-neue",
-});
+interface HeroProps {
+  onLocationsClick: () => void;
+}
 
-const Hero = () => {
+const Hero = ({ onLocationsClick }: HeroProps) => {
   const cornerLinksVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -59,9 +54,7 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center space-y-4 md:space-y-6 max-w-[90vw] md:max-w-4xl"
         >
-          <h1
-            className={`${bebasNeue.className} text-5xl sm:text-6xl md:text-7xl lg:text-[120px] text-white leading-none tracking-wide`}
-          >
+          <h1 className="bebas-neue text-5xl sm:text-6xl md:text-7xl lg:text-[120px] text-white leading-none tracking-wide">
             EQUIPPED
             <br />
             FOR
@@ -88,30 +81,30 @@ const Hero = () => {
             className="h-full w-full flex flex-col justify-between"
           >
             <div className="w-full flex justify-between">
-              <motion.div variants={cornerLinksVariants} className="mt-20">
+              <div className="mt-20">
                 <button
                   onClick={() => scrollToSection("camping-gear")}
                   className="text-white hover:text-emerald-400 flex items-center gap-1 sm:gap-2 transition-colors text-sm sm:text-base md:text-lg font-medium cursor-pointer"
                 >
                   <FaCampground className="text-sm sm:text-base md:text-lg" />
-                  <span className="border-b-2 border-transparent hover:border-emerald-400 pb-1 hidden sm:inline">
+                  <span className=" hover:border-emerald-400 hidden sm:block">
                     CAMPING GEAR
                   </span>
-                  <span className="border-b-2 border-transparent hover:border-emerald-400 pb-1 sm:hidden">
+                  <span className=" hover:border-emerald-400 sm:hidden">
                     GEAR
                   </span>
                 </button>
-              </motion.div>
+              </div>
               <motion.div variants={cornerLinksVariants} className="mt-20">
                 <button
                   onClick={() => scrollToSection("featured-gears")}
                   className="text-white hover:text-emerald-400 flex items-center gap-1 sm:gap-2 transition-colors text-sm sm:text-base md:text-lg font-medium cursor-pointer"
                 >
                   <FaFire className="text-sm sm:text-base md:text-lg" />
-                  <span className="border-b-2 border-transparent hover:border-emerald-400 pb-1 hidden sm:inline">
+                  <span className="border-b-2 border-transparent hover:border-emerald-400 hidden sm:inline">
                     FEATURED GEARS
                   </span>
-                  <span className="border-b-2 border-transparent hover:border-emerald-400 pb-1 sm:hidden">
+                  <span className="border-b-2 border-transparent hover:border-emerald-400 sm:hidden">
                     FEATURED
                   </span>
                 </button>
@@ -120,14 +113,14 @@ const Hero = () => {
             <div className="w-full flex justify-between">
               <motion.div variants={cornerLinksVariants}>
                 <button
-                  onClick={() => scrollToSection("locations")}
+                  onClick={onLocationsClick}
                   className="text-white hover:text-emerald-400 flex items-center gap-1 sm:gap-2 transition-colors text-sm sm:text-base md:text-lg font-medium cursor-pointer"
                 >
                   <FaMapMarkedAlt className="text-sm sm:text-base md:text-lg" />
-                  <span className="border-b-2 border-transparent hover:border-emerald-400 pb-1 hidden sm:inline">
-                    LIMITED
+                  <span className="border-b-2 border-transparent hover:border-emerald-400 hidden sm:inline">
+                    LIMITED LOCATIONS
                   </span>
-                  <span className="border-b-2 border-transparent hover:border-emerald-400 pb-1 sm:hidden">
+                  <span className="border-b-2 border-transparent hover:border-emerald-400 sm:hidden">
                     LOC
                   </span>
                 </button>
@@ -138,7 +131,7 @@ const Hero = () => {
                   className="text-white hover:text-emerald-400 flex items-center gap-1 sm:gap-2 transition-colors text-sm sm:text-base md:text-lg font-medium cursor-pointer"
                 >
                   <FaCompass className="text-sm sm:text-base md:text-lg" />
-                  <span className="border-b-2 border-transparent hover:border-emerald-400 pb-1">
+                  <span className="border-b-2 border-transparent hover:border-emerald-400">
                     EST. 2024
                   </span>
                 </button>
@@ -151,4 +144,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export { Hero };

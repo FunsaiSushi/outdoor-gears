@@ -1,6 +1,13 @@
 "use client";
 
-import { FiX, FiUser, FiMapPin, FiPlus, FiLogOut } from "react-icons/fi";
+import {
+  FiX,
+  FiUser,
+  FiMapPin,
+  FiPlus,
+  FiLogOut,
+  FiAlertCircle,
+} from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface NavbarMenuProps {
@@ -12,6 +19,7 @@ interface NavbarMenuProps {
   onAddRentalClick: () => void;
   onReportDamageClick: () => void;
   onYourListingsClick: () => void;
+  onYourReportsClick: () => void;
   currentUser: { email: string } | null;
   onLogout: () => void;
 }
@@ -25,6 +33,7 @@ const NavbarMenu = ({
   onAddRentalClick,
   onReportDamageClick,
   onYourListingsClick,
+  onYourReportsClick,
   currentUser,
   onLogout,
 }: NavbarMenuProps) => {
@@ -147,6 +156,20 @@ const NavbarMenu = ({
                 </button>
               )}
 
+              {/* Your Reports (Authenticated Users Only) */}
+              {currentUser && (
+                <button
+                  onClick={() => {
+                    onClose();
+                    onYourReportsClick();
+                  }}
+                  className="flex items-center gap-3 w-full p-3 hover:bg-gray-100 rounded-lg transition-colors text-amber-600"
+                >
+                  <FiAlertCircle className="w-5 h-5" />
+                  <span>Your Reports</span>
+                </button>
+              )}
+
               {/* Logout (Authenticated Users Only) */}
               {currentUser && (
                 <button
@@ -168,4 +191,4 @@ const NavbarMenu = ({
   );
 };
 
-export default NavbarMenu;
+export { NavbarMenu };

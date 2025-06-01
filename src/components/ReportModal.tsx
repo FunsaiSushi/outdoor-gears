@@ -22,6 +22,30 @@ const ReportModal: React.FC<ReportModalProps> = ({
   const [damageImage, setDamageImage] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Check file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image size should be less than 5MB");
+      return;
+    }
+
+    // Check file type
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please upload an image file");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+      setDamageImage(base64String);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedGear) {
@@ -37,12 +61,25 @@ const ReportModal: React.FC<ReportModalProps> = ({
       return;
     }
 
-    // Handle the report submission
-    console.log("Damage report submitted:", {
+    // Get current user
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    if (!currentUser.email) {
+      toast.error("Please sign in to submit a report");
+      return;
+    }
+
+    // Store the report in localStorage
+    const reports = JSON.parse(localStorage.getItem("damageReports") || "[]");
+    const newReport = {
+      id: Date.now(),
       gearId: selectedGear,
       damageImage,
       description,
-    });
+      timestamp: new Date().toISOString(),
+      userEmail: currentUser.email,
+    };
+    reports.push(newReport);
+    localStorage.setItem("damageReports", JSON.stringify(reports));
 
     toast.success("Damage report submitted successfully");
     onClose();
@@ -112,16 +149,24 @@ const ReportModal: React.FC<ReportModalProps> = ({
                       htmlFor="damageImage"
                       className="block text-sm font-medium text-gray-700 mb-2 cursor-pointer"
                     >
-                      Damage Image URL
+                      Upload Damage Image
                     </label>
                     <input
-                      type="url"
+                      type="file"
                       id="damageImage"
-                      value={damageImage}
-                      onChange={(e) => setDamageImage(e.target.value)}
-                      placeholder="https://example.com/damage-image.jpg"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-amber-500 cursor-text"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-amber-500 cursor-pointer"
                     />
+                    {damageImage && (
+                      <div className="mt-2">
+                        <img
+                          src={damageImage}
+                          alt="Damage preview"
+                          className="w-full max-h-48 object-contain rounded-lg"
+                        />
+                      </div>
+                    )}
                   </div>
 
                   {/* Description */}
@@ -159,4 +204,4 @@ const ReportModal: React.FC<ReportModalProps> = ({
   );
 };
 
-export default ReportModal;
+export { ReportModal };

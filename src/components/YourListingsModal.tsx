@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiX, FiEdit2, FiTrash2, FiEye } from "react-icons/fi";
+import { FiX, FiTrash2, FiEye } from "react-icons/fi";
 import { toast } from "sonner";
 
 interface GearListing {
@@ -18,7 +18,6 @@ interface YourListingsModalProps {
   isOpen: boolean;
   onClose: () => void;
   listings: GearListing[];
-  onEditListing: (id: string | number) => void;
   onDeleteListing: (id: string | number) => void;
 }
 
@@ -26,7 +25,6 @@ const YourListingsModal: React.FC<YourListingsModalProps> = ({
   isOpen,
   onClose,
   listings,
-  onEditListing,
   onDeleteListing,
 }) => {
   const handleDelete = (id: string | number) => {
@@ -146,13 +144,6 @@ const YourListingsModal: React.FC<YourListingsModalProps> = ({
                             onClick={(e) => e.stopPropagation()}
                           >
                             <button
-                              onClick={() => onEditListing(listing.id)}
-                              className="p-2 hover:bg-white rounded-lg transition-colors cursor-pointer"
-                              title="Edit listing"
-                            >
-                              <FiEdit2 className="w-5 h-5 text-gray-600" />
-                            </button>
-                            <button
                               onClick={() => handleDelete(listing.id)}
                               className="p-2 hover:bg-white rounded-lg transition-colors cursor-pointer"
                               title="Delete listing"
@@ -180,4 +171,4 @@ const YourListingsModal: React.FC<YourListingsModalProps> = ({
   );
 };
 
-export default YourListingsModal;
+export { YourListingsModal };

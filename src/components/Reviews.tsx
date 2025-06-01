@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { FiStar } from "react-icons/fi";
-
 interface Review {
   id: string;
   rentalId: string;
@@ -52,11 +51,11 @@ const exampleReviews = [
 
 const renderStars = (rating: number) => {
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-0.5 sm:gap-1">
       {[...Array(5)].map((_, index) => (
         <FiStar
           key={index}
-          className={`w-4 h-4 ${
+          className={`w-3 h-3 sm:w-4 sm:h-4 ${
             index < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
           }`}
         />
@@ -98,44 +97,49 @@ const Reviews: React.FC<ReviewsProps> = ({ gearName }) => {
 
   if (!hasRented) {
     return (
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-gray-900">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
             Customer Reviews
           </h3>
           <div className="flex items-center gap-2">
             <div className="flex items-center">{renderStars(4.7)}</div>
-            <span className="text-lg font-medium text-gray-900">4.7</span>
-            <span className="text-sm text-gray-500">
+            <span className="text-base sm:text-lg font-medium text-gray-900">
+              4.7
+            </span>
+            <span className="text-xs sm:text-sm text-gray-500">
               ({exampleReviews.length} reviews)
             </span>
           </div>
         </div>
-        <div className="bg-amber-50 p-4 rounded-2xl border border-amber-200">
-          <p className="text-amber-800">
+        <div className="bg-amber-50 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-amber-200">
+          <p className="text-sm sm:text-base text-amber-800">
             You can review this product after completing your rental. Reviews
             help other customers make informed decisions about their gear
             choices.
           </p>
         </div>
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {exampleReviews.map((review) => (
-            <div key={review.id} className="border rounded-2xl p-4 space-y-2">
+            <div
+              key={review.id}
+              className="border rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2"
+            >
               <div className="flex justify-between items-start">
                 <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium text-gray-900">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <span className="font-medium text-gray-900 text-sm sm:text-base">
                       {review.author}
                     </span>
                     {review.verified && (
-                      <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
+                      <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full w-fit">
                         Verified Rental
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-2 mt-1">
+                  <div className="flex flex-wrap items-center gap-2 mt-1">
                     {renderStars(review.rating)}
-                    <span className="text-sm text-gray-500">
+                    <span className="text-xs sm:text-sm text-gray-500">
                       {new Date(review.date).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
@@ -145,7 +149,9 @@ const Reviews: React.FC<ReviewsProps> = ({ gearName }) => {
                   </div>
                 </div>
               </div>
-              <p className="text-gray-600">{review.comment}</p>
+              <p className="text-sm sm:text-base text-gray-600">
+                {review.comment}
+              </p>
             </div>
           ))}
         </div>
@@ -154,32 +160,39 @@ const Reviews: React.FC<ReviewsProps> = ({ gearName }) => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold text-gray-900">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
+        <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
           Customer Reviews
         </h3>
         <div className="flex items-center gap-2">
           <div className="flex items-center">{renderStars(4.7)}</div>
-          <span className="text-lg font-medium text-gray-900">4.7</span>
-          <span className="text-sm text-gray-500">
+          <span className="text-base sm:text-lg font-medium text-gray-900">
+            4.7
+          </span>
+          <span className="text-xs sm:text-sm text-gray-500">
             ({exampleReviews.length + reviews.length} reviews)
           </span>
         </div>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {reviews.map((review) => (
-          <div key={review.id} className="border rounded-2xl p-4 space-y-2">
+          <div
+            key={review.id}
+            className="border rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2"
+          >
             <div className="flex justify-between items-start">
               <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-medium text-gray-900">You</span>
-                  <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                  <span className="font-medium text-gray-900 text-sm sm:text-base">
+                    You
+                  </span>
+                  <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full w-fit">
                     Your Review
                   </span>
                 </div>
                 <div className="flex items-center gap-2 mt-1">
-                  <span className="text-sm text-gray-500">
+                  <span className="text-xs sm:text-sm text-gray-500">
                     {new Date(review.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -189,26 +202,31 @@ const Reviews: React.FC<ReviewsProps> = ({ gearName }) => {
                 </div>
               </div>
             </div>
-            <p className="text-gray-600">{review.review}</p>
+            <p className="text-sm sm:text-base text-gray-600">
+              {review.review}
+            </p>
           </div>
         ))}
         {exampleReviews.map((review) => (
-          <div key={review.id} className="border rounded-2xl p-4 space-y-2">
+          <div
+            key={review.id}
+            className="border rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2"
+          >
             <div className="flex justify-between items-start">
               <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-medium text-gray-900">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                  <span className="font-medium text-gray-900 text-sm sm:text-base">
                     {review.author}
                   </span>
                   {review.verified && (
-                    <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
+                    <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full w-fit">
                       Verified Rental
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-2 mt-1">
+                <div className="flex flex-wrap items-center gap-2 mt-1">
                   {renderStars(review.rating)}
-                  <span className="text-sm text-gray-500">
+                  <span className="text-xs sm:text-sm text-gray-500">
                     {new Date(review.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -218,7 +236,9 @@ const Reviews: React.FC<ReviewsProps> = ({ gearName }) => {
                 </div>
               </div>
             </div>
-            <p className="text-gray-600">{review.comment}</p>
+            <p className="text-sm sm:text-base text-gray-600">
+              {review.comment}
+            </p>
           </div>
         ))}
       </div>
@@ -226,4 +246,4 @@ const Reviews: React.FC<ReviewsProps> = ({ gearName }) => {
   );
 };
 
-export default Reviews;
+export { Reviews };

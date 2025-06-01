@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bebas_Neue } from "next/font/google";
 import GearModal from "./GearModal";
+import { sampleGear } from "./Gears";
 
 const bebasNeue = Bebas_Neue({
   weight: "400",
@@ -24,6 +25,21 @@ interface BaseGearItem {
 interface SampleGearItem extends BaseGearItem {
   id: number;
   unavailableDates: Date[];
+  description: string;
+  features: string[];
+  deposit: number;
+  pickupLocation: string;
+  pickupInstructions: string;
+  insuranceOptions: {
+    basic: {
+      price: number;
+      features: string[];
+    };
+    premium: {
+      price: number;
+      features: string[];
+    };
+  };
 }
 
 interface LocalStorageGearItem extends BaseGearItem {
@@ -46,48 +62,6 @@ interface LocalStorageGearItem extends BaseGearItem {
 }
 
 type GearItem = SampleGearItem | LocalStorageGearItem;
-
-// Sample gear data from Gears component
-const sampleGear: GearItem[] = [
-  {
-    id: 1,
-    name: "Sleeping Bag Ultra",
-    category: "SLEEPING",
-    image:
-      "https://images.unsplash.com/photo-1558477280-1bfed08ea5db?q=80&w=1976&auto=format&fit=crop",
-    price: 25,
-    availableCount: 8,
-    unavailableDates: [],
-  },
-  {
-    id: 2,
-    name: "Camping Stove Pro",
-    category: "COOKING",
-    image: "https://images.unsplash.com/photo-1523497873958-8639c94677f2",
-    price: 15,
-    availableCount: 5,
-    unavailableDates: [],
-  },
-  {
-    id: 4,
-    name: "4-Person Tent",
-    category: "TENTS",
-    image: "https://images.unsplash.com/photo-1501703979959-797917eb21c8?q=80",
-    price: 45,
-    availableCount: 3,
-    unavailableDates: [],
-  },
-  {
-    id: 6,
-    name: "Cooler Pro 50L",
-    category: "STORAGE",
-    image:
-      "https://images.unsplash.com/photo-1700004583893-981e311b3501?q=80&w=2071&auto=format&fit=crop",
-    price: 20,
-    availableCount: 6,
-    unavailableDates: [],
-  },
-];
 
 const FeaturedGears = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

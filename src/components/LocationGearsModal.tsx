@@ -64,4 +64,4 @@ const LocationGearsModal: React.FC<LocationGearsModalProps> = ({
   );
 };
 
-export default LocationGearsModal;
+export { LocationGearsModal };

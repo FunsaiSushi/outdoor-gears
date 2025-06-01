@@ -26,6 +26,21 @@ interface BaseGearItem {
 interface SampleGearItem extends BaseGearItem {
   id: number;
   unavailableDates: Date[];
+  description: string;
+  features: string[];
+  deposit: number;
+  pickupLocation: string;
+  pickupInstructions: string;
+  insuranceOptions: {
+    basic: {
+      price: number;
+      features: string[];
+    };
+    premium: {
+      price: number;
+      features: string[];
+    };
+  };
 }
 
 // Interface for localStorage gear items
@@ -93,7 +108,7 @@ const categories = [
 ];
 
 // Helper function to generate random unavailable dates
-const generateUnavailableDates = (count: number): Date[] => {
+export const generateUnavailableDates = (count: number): Date[] => {
   const dates: Date[] = [];
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -121,7 +136,7 @@ const generateUnavailableDates = (count: number): Date[] => {
 };
 
 // Helper function to convert localStorage gear to display format
-const convertLocalStorageGearToDisplayFormat = (
+export const convertLocalStorageGearToDisplayFormat = (
   gear: LocalStorageGearItem
 ): GearItem => {
   return {
@@ -131,7 +146,7 @@ const convertLocalStorageGearToDisplayFormat = (
   };
 };
 
-const sampleGear: GearItem[] = [
+export const sampleGear: GearItem[] = [
   {
     id: 1,
     name: "Sleeping Bag Ultra",
@@ -141,6 +156,25 @@ const sampleGear: GearItem[] = [
     price: 25,
     availableCount: 8,
     unavailableDates: generateUnavailableDates(8),
+    description: "Ultra-comfortable sleeping bag for all seasons",
+    features: ["All-season", "Water-resistant", "Lightweight"],
+    deposit: 250,
+    pickupLocation: "Outdoor Hub • Downtown",
+    pickupInstructions: "Available for pickup during store hours",
+    insuranceOptions: {
+      basic: {
+        price: 5,
+        features: ["Covers accidental damage", "Basic theft protection"],
+      },
+      premium: {
+        price: 10,
+        features: [
+          "Full damage coverage",
+          "Extended theft protection",
+          "Emergency replacement",
+        ],
+      },
+    },
   },
   {
     id: 2,
@@ -150,6 +184,25 @@ const sampleGear: GearItem[] = [
     price: 15,
     availableCount: 5,
     unavailableDates: generateUnavailableDates(5),
+    description: "Professional-grade camping stove",
+    features: ["Dual burner", "Wind protection", "Compact design"],
+    deposit: 150,
+    pickupLocation: "Wilderness Co • West Side",
+    pickupInstructions: "Available for pickup during store hours",
+    insuranceOptions: {
+      basic: {
+        price: 3,
+        features: ["Covers accidental damage", "Basic theft protection"],
+      },
+      premium: {
+        price: 8,
+        features: [
+          "Full damage coverage",
+          "Extended theft protection",
+          "Emergency replacement",
+        ],
+      },
+    },
   },
   {
     id: 3,
@@ -160,6 +213,25 @@ const sampleGear: GearItem[] = [
     price: 10,
     availableCount: 12,
     unavailableDates: generateUnavailableDates(4),
+    description: "Bright and long-lasting LED lantern",
+    features: ["Rechargeable", "Water-resistant", "Multiple light modes"],
+    deposit: 100,
+    pickupLocation: "Trail Supply • North End",
+    pickupInstructions: "Available for pickup during store hours",
+    insuranceOptions: {
+      basic: {
+        price: 2,
+        features: ["Covers accidental damage", "Basic theft protection"],
+      },
+      premium: {
+        price: 5,
+        features: [
+          "Full damage coverage",
+          "Extended theft protection",
+          "Emergency replacement",
+        ],
+      },
+    },
   },
   {
     id: 4,
@@ -169,6 +241,25 @@ const sampleGear: GearItem[] = [
     price: 45,
     availableCount: 3,
     unavailableDates: generateUnavailableDates(6),
+    description: "Spacious 4-person tent with weather protection",
+    features: ["Waterproof", "Easy setup", "Double-layer"],
+    deposit: 450,
+    pickupLocation: "Camp Supply • East Side",
+    pickupInstructions: "Available for pickup during store hours",
+    insuranceOptions: {
+      basic: {
+        price: 8,
+        features: ["Covers accidental damage", "Basic theft protection"],
+      },
+      premium: {
+        price: 15,
+        features: [
+          "Full damage coverage",
+          "Extended theft protection",
+          "Emergency replacement",
+        ],
+      },
+    },
   },
   {
     id: 5,
@@ -179,6 +270,25 @@ const sampleGear: GearItem[] = [
     price: 12,
     availableCount: 15,
     unavailableDates: generateUnavailableDates(3),
+    description: "Comfortable and durable camping chair",
+    features: ["Cup holder", "Storage pocket", "Heavy-duty frame"],
+    deposit: 120,
+    pickupLocation: "Mountain Base • South End",
+    pickupInstructions: "Available for pickup during store hours",
+    insuranceOptions: {
+      basic: {
+        price: 3,
+        features: ["Covers accidental damage", "Basic theft protection"],
+      },
+      premium: {
+        price: 7,
+        features: [
+          "Full damage coverage",
+          "Extended theft protection",
+          "Emergency replacement",
+        ],
+      },
+    },
   },
   {
     id: 6,
@@ -189,6 +299,25 @@ const sampleGear: GearItem[] = [
     price: 20,
     availableCount: 6,
     unavailableDates: generateUnavailableDates(7),
+    description: "Large capacity cooler with excellent insulation",
+    features: ["50L capacity", "5-day ice retention", "Bear-proof"],
+    deposit: 200,
+    pickupLocation: "Adventure Co • Central",
+    pickupInstructions: "Available for pickup during store hours",
+    insuranceOptions: {
+      basic: {
+        price: 4,
+        features: ["Covers accidental damage", "Basic theft protection"],
+      },
+      premium: {
+        price: 9,
+        features: [
+          "Full damage coverage",
+          "Extended theft protection",
+          "Emergency replacement",
+        ],
+      },
+    },
   },
   {
     id: 7,
@@ -199,6 +328,25 @@ const sampleGear: GearItem[] = [
     price: 18,
     availableCount: 10,
     unavailableDates: generateUnavailableDates(5),
+    description: "High-quality waterproof hiking boots",
+    features: ["Waterproof", "Ankle support", "Vibram sole"],
+    deposit: 180,
+    pickupLocation: "Peak Gear • Midtown",
+    pickupInstructions: "Available for pickup during store hours",
+    insuranceOptions: {
+      basic: {
+        price: 4,
+        features: ["Covers accidental damage", "Basic theft protection"],
+      },
+      premium: {
+        price: 8,
+        features: [
+          "Full damage coverage",
+          "Extended theft protection",
+          "Emergency replacement",
+        ],
+      },
+    },
   },
 ];
 
@@ -303,7 +451,7 @@ const Gears = () => {
                 onClick={() => setSelectedCategory(category.name)}
                 className="relative overflow-hidden aspect-square cursor-pointer group rounded-2xl"
               >
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10" />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors z-10" />
                 <img
                   src={category.image}
                   alt={category.name}
@@ -344,17 +492,13 @@ const Gears = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setSelectedCategory(category.name)}
-                    className={`flex-none mx-2 relative group cursor-pointer ${
-                      selectedCategory === category.name
-                        ? "opacity-100"
-                        : "opacity-50 hover:opacity-75"
-                    }`}
+                    className={`flex-none mx-2 relative group cursor-pointer`}
                   >
                     <div className="w-32 h-20 relative overflow-hidden rounded-2xl">
                       <div
-                        className={`absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10 ${
+                        className={`absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors z-10 ${
                           selectedCategory === category.name
-                            ? "bg-emerald-900/40"
+                            ? "bg-emerald-900/70"
                             : ""
                         }`}
                       />
@@ -365,7 +509,7 @@ const Gears = () => {
                       />
                       <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
                         <h3
-                          className={`text-sm ${bebasNeue.className} text-white`}
+                          className={`text-lg ${bebasNeue.className} text-white`}
                         >
                           {category.name}
                         </h3>
