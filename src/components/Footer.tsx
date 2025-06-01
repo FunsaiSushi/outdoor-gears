@@ -34,7 +34,7 @@ const Footer = () => {
         >
           {/* Brand Section */}
           <motion.div variants={itemVariants} className="space-y-4">
-            <h3 className="text-2xl font-bold text-white">OutdoorBoys</h3>
+            <h3 className="text-2xl font-bold text-white">OutdoorGears</h3>
             <p className="text-sm text-gray-400">
               Your trusted platform for outdoor gear rentals. Adventure awaits
               with our quality equipment and seamless rental experience.
@@ -99,7 +99,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <FiMail className="w-5 h-5 text-emerald-400" />
-                <span className="text-sm">hello@outdoorboys.com</span>
+                <span className="text-sm">hello@outdoorGears.com</span>
               </li>
             </ul>
           </motion.div>
@@ -113,7 +113,7 @@ const Footer = () => {
           viewport={{ once: true }}
           className="mt-12 pt-8 border-t border-emerald-800 text-center text-sm text-gray-400"
         >
-          <p>© 2024 OutdoorBoys. All rights reserved.</p>
+          <p>© 2024 OutdoorGears. All rights reserved.</p>
         </motion.div>
       </div>
     </footer>

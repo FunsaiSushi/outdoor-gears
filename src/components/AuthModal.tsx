@@ -178,8 +178,8 @@ const AuthModal = ({
           <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px] flex items-center justify-center">
             <h2 className="text-4xl font-bold text-white text-center px-6 drop-shadow-lg">
               {mode === "login"
-                ? "Welcome Back to OutdoorBoys!"
-                : "Join the OutdoorBoys community and start your adventure."}
+                ? "Welcome Back to OutdoorGears!"
+                : "Join the OutdoorGears community and start your adventure."}
             </h2>
           </div>
         </div>
